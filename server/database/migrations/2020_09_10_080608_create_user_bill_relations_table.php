@@ -14,8 +14,11 @@ class CreateUserBillRelationsTable extends Migration
     public function up()
     {
         Schema::create('user_bill_relations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('bill_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('bill_id')->references('id')->on('bills');
+            $table->primary(['user_id', 'bill_id']);
         });
     }
 
