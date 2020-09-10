@@ -14,8 +14,11 @@ class CreateBudgetBillRelationsTable extends Migration
     public function up()
     {
         Schema::create('budget_bill_relations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedInteger('budget_id');
+            $table->unsignedInteger('bill_id');
+            $table->foreign('budget_id')->references('id')->on('budgets');
+            $table->foreign('bill_id')->references('id')->on('bills');
+            $table->primary(['budget_id', 'bill_id']);
         });
     }
 
