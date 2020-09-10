@@ -14,8 +14,11 @@ class CreateEventBillRelationsTable extends Migration
     public function up()
     {
         Schema::create('event_bill_relations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedInteger('event_id');
+            $table->unsignedInteger('bill_id');
+            $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('bill_id')->references('id')->on('bills');
+            $table->primary(['event_id', 'bill_id']);
         });
     }
 
