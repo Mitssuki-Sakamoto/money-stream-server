@@ -14,8 +14,11 @@ class CreateUserMoneyHistoryRelationsTable extends Migration
     public function up()
     {
         Schema::create('user_money_history_relations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('money_history_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('money_history_id')->references('id')->on('money_histories');
+            $table->primary(['user_id', 'money_history_id']);
         });
     }
 
