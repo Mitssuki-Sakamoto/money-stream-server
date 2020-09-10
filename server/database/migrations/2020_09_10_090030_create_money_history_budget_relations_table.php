@@ -18,7 +18,7 @@ class CreateMoneyHistoryBudgetRelationsTable extends Migration
             $table->unsignedInteger('budget_id');
             $table->foreign('money_history_id')->references('id')->on('money_histories');
             $table->foreign('budget_id')->references('id')->on('budgets');
-            $table->primary(['money_history_id', 'budget_id']);
+            $table->primary(['money_history_id', 'budget_id'], "money_history_id_budget_id_primary");
         });
     }
 
