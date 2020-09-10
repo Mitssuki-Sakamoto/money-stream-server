@@ -14,8 +14,11 @@ class CreateMoneyHistoryBillRelationsTable extends Migration
     public function up()
     {
         Schema::create('money_history_bill_relations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedInteger('money_history_id');
+            $table->unsignedInteger('bill_id');
+            $table->foreign('money_history_id')->references('id')->on('money_histories');
+            $table->foreign('bill_id')->references('id')->on('bills');
+            $table->primary(['money_history_id', 'bill_id']);
         });
     }
 
