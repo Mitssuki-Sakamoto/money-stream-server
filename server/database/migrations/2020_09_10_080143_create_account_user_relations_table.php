@@ -14,8 +14,12 @@ class CreateAccountUserRelationsTable extends Migration
     public function up()
     {
         Schema::create('account_user_relations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedInteger('account_id');
+            $table->unsignedInteger('user_id');
+            $table->boolean('manager')->default(False);
+            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->primary(['account_id', 'user_id']);
         });
     }
 
