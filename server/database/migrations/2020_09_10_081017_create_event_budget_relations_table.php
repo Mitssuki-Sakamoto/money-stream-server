@@ -14,8 +14,11 @@ class CreateEventBudgetRelationsTable extends Migration
     public function up()
     {
         Schema::create('event_budget_relations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedInteger('event_id');
+            $table->unsignedInteger('budget_id');
+            $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('budget_id')->references('id')->on('budgets');
+            $table->primary(['event_id', 'budget_id']);
         });
     }
 
