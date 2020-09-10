@@ -14,8 +14,13 @@ class CreateBudgetsTable extends Migration
     public function up()
     {
         Schema::create('budgets', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->increments('id');
+            $table->string('name', 255);
+            $table->unsignedInteger('money');
+            $table->dateTime('datetime');
+            $table->string('url', 255)->nullable($value = True);
+            $table->boolean('done')->default(False);
+            $table->mediumText('note')->nullable($value = true);
         });
     }
 
