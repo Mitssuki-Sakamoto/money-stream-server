@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserTreasurerRelationsTable extends Migration
+class CreateMoneyHistoryBillRelationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserTreasurerRelationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_treasurer_relations', function (Blueprint $table) {
+        Schema::create('money_history_bill_relations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateUserTreasurerRelationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_treasurer_relations');
+        Schema::dropIfExists('money_history_bill_relations');
     }
 }

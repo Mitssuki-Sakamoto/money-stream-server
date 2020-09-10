@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEventTreasurerRelationsTable extends Migration
+class CreateMoneyHistoryBudgetRelationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateEventTreasurerRelationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('event_treasurer_relations', function (Blueprint $table) {
+        Schema::create('money_history_budget_relations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateEventTreasurerRelationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_treasurer_relations');
+        Schema::dropIfExists('money_history_budget_relations');
     }
 }
