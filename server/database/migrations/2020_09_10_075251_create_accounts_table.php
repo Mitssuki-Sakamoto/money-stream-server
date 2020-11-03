@@ -17,9 +17,7 @@ class CreateAccountsTable extends Migration
             $table->increments('id');
             $table->string('email', 255);
             $table->string('pass_code', 255)->nullable($value = true);
-            $table->string('api_key', 255);
             $table->unique('email');
-            $table->unique('api_key');
         });
     }
 

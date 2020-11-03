@@ -15,11 +15,14 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('api_key', 255);
             $table->string('name', 255);
             $table->string('invent_code', 255);
-            $table->string('thumbnail', 255);
+            $table->string('thumbnail', 255)->nullable(True);
             $table->unique('invent_code');
             $table->unique('thumbnail');
+            $table->unique('api_key');
+
         });
     }
 
