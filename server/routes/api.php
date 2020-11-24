@@ -17,6 +17,9 @@ Route::group(['middleware' =>['api']],function(){
     Route::post('user', 'UsersController@store');
 });
 
+
 Route::group(['middleware' =>['auth:api']],function(){
     Route::resource('user', 'UsersController', ['only' => ['show', 'update', 'destroy']]);
+    Route::get('user/friends', 'UsersController@friends');
+
 });

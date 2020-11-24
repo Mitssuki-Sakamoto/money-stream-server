@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\User;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -27,14 +28,15 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         //
-        $user = new User;
+        $user = new User();
         $user->invent_code = $this->generateInventCode();
         $user->api_key = $this->generateApiKey();
         try
         {
             if ($request->has('thumbnail'))
             {
-            $user->thumbnail = $request->file('thumbnail')->store('images');
+                $thumbnail_path = $request->file('thumbnail')->store('images');
+                $user->thumbnail = Storage::url($thumbnail_path);
             }
         }
         catch (Exception $e)
@@ -77,6 +79,11 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    {
+        //
+    }
+
+    public function friends($id)
     {
         //
     }
