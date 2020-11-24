@@ -21,6 +21,10 @@ class CreateBudgetsTable extends Migration
             $table->string('url', 255)->nullable($value = True);
             $table->boolean('done')->default(False);
             $table->mediumText('note')->nullable($value = true);
+
+            $table->unsignedInteger('event_id');
+            $table->foreign('event_id')->references('id')->on('events');
+
         });
     }
 
