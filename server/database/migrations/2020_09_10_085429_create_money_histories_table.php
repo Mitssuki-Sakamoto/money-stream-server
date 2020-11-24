@@ -19,6 +19,15 @@ class CreateMoneyHistoriesTable extends Migration
             $table->unsignedInteger('money');
             $table->dateTime('datetime');
             $table->mediumText('note')->nullable($value = true);
+
+            $table->unsignedInteger('event_id');
+            $table->foreign('event_id')->references('id')->on('events');
+
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->unsignedInteger('budget_id')->nullable($value = True);
+            $table->foreign('budget_id')->references('id')->on('budgets');
         });
     }
 
