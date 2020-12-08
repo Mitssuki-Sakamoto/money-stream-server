@@ -9,16 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
-    private function generateInventCode(int $size = 20)
-    {
-        return Str::random($size);
-    }
-
-    private function generateApiKey(int $size = 40)
-    {
-        return Str::random($size);
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -29,8 +19,8 @@ class UsersController extends Controller
     {
         //
         $user = new User();
-        $user->invent_code = $this->generateInventCode();
-        $user->api_key = $this->generateApiKey();
+        $user->invent_code = User::generateInventCode();
+        $user->api_key = User::generateApiKey();
         try
         {
             if ($request->has('thumbnail'))
@@ -39,7 +29,7 @@ class UsersController extends Controller
                 $user->thumbnail = Storage::url($thumbnail_path);
             }
         }
-        catch (Exception $e)
+        catch (\Exception $e)
         {
             return response($e->getMessage(), 500);
         }
