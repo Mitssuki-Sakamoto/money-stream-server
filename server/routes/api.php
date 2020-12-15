@@ -21,6 +21,6 @@ Route::group(['middleware' =>['api']],function(){
 Route::group(['middleware' =>['auth:api']],function(){
     Route::resource('user', 'UsersController', ['only' => ['show', 'update', 'destroy']]);
     Route::get('user/friends', 'UsersController@friends');
-    Route::resource('event', 'EventController', ['only' => ['store']]);
+    Route::resource('event', 'EventController', ['only' => ['store', 'update']]);
 
 });
