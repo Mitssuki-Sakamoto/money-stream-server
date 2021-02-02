@@ -16,7 +16,7 @@ class CreateUserEventRelationsTable extends Migration
         Schema::create('user_event_relations', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('event_id');
-            $table->boolean('manager')->default(False);
+            $table->unsignedInteger('status')->default(\App\Models\UserEventRelation::NORMAL);
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('event_id')->references('id')->on('events');
             $table->primary(['user_id', 'event_id']);

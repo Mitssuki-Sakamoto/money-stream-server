@@ -21,6 +21,10 @@ Route::group(['middleware' =>['api']],function(){
 Route::group(['middleware' =>['auth:api']],function(){
     Route::resource('user', 'UsersController', ['only' => ['show', 'update', 'destroy']]);
     Route::get('user/friends', 'UsersController@friends');
-    Route::resource('event', 'EventController', ['only' => ['store', 'update']]);
+    Route::resource('event', 'EventController', ['only' => ['store', 'update', 'destroy']]);
+    Route::get('event/list', 'EventController@list')->name('event.list');
+    Route::get('event/users/{event_id}', 'EventController@users')->name('event.users');
+    Route::post('event/user_invent/{event_id}', 'EventController@user_invent')->name('event.user_invent');
+    Route::post('event/accept_invent/{event_id}', 'EventController@accept_invent')->name('event.accept_invent');
 
 });
