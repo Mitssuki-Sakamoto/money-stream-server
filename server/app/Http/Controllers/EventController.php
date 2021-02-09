@@ -135,6 +135,10 @@ class EventController extends Controller
             'users_ids' => 'required|array',
             'users_ids.*' => 'required|exists:users,id'
         ]);
+        $owner_user_event_relation = UserEventRelation::where('event_id', $id)->where('user_id', Auth::id())->first();
+        if ($owner_user_event_relation->status != UserEventRelation::MANAGER){
+            throw new AuthenticationException('This user has not authentication.');
+        }
         $users_ids = $request->input('users_ids');
         foreach ($users_ids as $user_id) {
             $user_event_relation = new UserEventRelation();
@@ -152,6 +156,9 @@ class EventController extends Controller
             'accept' => 'required|boolean']);
         $accept = $request->input('accept');
         $user_event_relation = UserEventRelation::where('event_id', $id)->where('user_id', Auth::id())->first();
+        if ($user_event_relation->status != UserEventRelation::INVENTED){
+            throw new BadRequestException('This user is not invented.');
+        }
         if ($accept){
             $user_event_relation->status = UserEventRelation::NORMAL;
         }else{
@@ -160,7 +167,15 @@ class EventController extends Controller
         return response($accept);
     }
 
-
+    public function delete_user(Request $request, $event_id, $user_id)
+    {
+        $owner_user_event_relation = UserEventRelation::where('event_id', $event_id)->where('user_id', Auth::id())->first();
+        if ($owner_user_event_relation->status != UserEventRelation::MANAGER){
+            throw new BadRequestException('This user is not invented.');
+        }
+        UserEventRelation::where('event_id', $event_id)->where('user_id', $user_id)->delete();
+        return response($user_id);
+    }
 
 }
 

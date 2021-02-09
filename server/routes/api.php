@@ -26,5 +26,6 @@ Route::group(['middleware' =>['auth:api']],function(){
     Route::get('event/users/{event_id}', 'EventController@users')->name('event.users');
     Route::post('event/user_invent/{event_id}', 'EventController@user_invent')->name('event.user_invent');
     Route::post('event/accept_invent/{event_id}', 'EventController@accept_invent')->name('event.accept_invent');
+    Route::delete('event/delete_user/{event_id}/{user_id}', 'EventController@delete_user')->name('event.delete_user');
 
 });

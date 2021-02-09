@@ -202,18 +202,55 @@ class EventControllerTest extends TestCase
 
     public function testAcceptInvent()
     {
+        $invented_event_id = 169;
+
         $response = $this->withHeaders([
             'Authorization' => 'Bearer b0B4C2vvso6XBPjtPI50xY2bKjhKhS6y',
-        ])->post(route('event.accept_invent', [166]), ['accept'=>true]);
+        ])->post(route('event.accept_invent', [$invented_event_id]), ['accept'=>true]);
 
         // レスポンス検証
         $response->assertOk(); # ステータスコードが 200
+    }
 
+    public function testDenyInvent(){
+        $invented_event_id = 169;
         $response = $this->withHeaders([
             'Authorization' => 'Bearer WyciSJvPn8hA2ZXrsb43y1RALe3tdL2a',
-        ])->post(route('event.accept_invent', [166]), ['accept'=>false]);
+        ])->post(route('event.accept_invent', [$invented_event_id]), ['accept'=>false]);
 
         // レスポンス検証
         $response->assertOk(); # ステータスコードが 200
+    }
+
+    public function testDeleteUser(){
+
+        $data = [ # 登録用のデータ
+            'name' => 'hogehoge',
+            'start_date' => '2020-01-01',
+            'description' => 'ryokou hogehoge',
+        ];
+
+        // `users` テーブルにデータを作成
+        $event =Event::create($data);
+        $user_event1 = UserEventRelation::create([
+            'event_id'=>$event->id,
+            'user_id' => 1,
+            'status' => UserEventRelation::MANAGER
+        ]);
+        $user_event2 = UserEventRelation::create([
+            'event_id'=>$event->id,
+            'user_id' => 2,
+            'status' => UserEventRelation::NORMAL
+        ]);
+        $event->save();
+        $user_event1->save();
+        $user_event2->save();
+        // POST リクエスト
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer FHGSyYcxHZf3gjq7oDSYJOS2evsiidOo',
+        ])->delete(route('event.delete_user', [$event->id, 2]));
+
+        // レスポンス検証
+        $response->assertOk()->assertJsonFragment([2]); # ステータスコードが 200
     }
 }
