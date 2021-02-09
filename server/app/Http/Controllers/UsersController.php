@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\User;
+use App\Models\UserEventRelation;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -104,8 +106,11 @@ class UsersController extends Controller
         //
     }
 
-    public function friends($id)
+    public function friends()
     {
-        //
+        $event_ids = UserEventRelation::select('event_id')->where('user_id', Auth::id())->get();
+        $user_ids = UserEventRelation::select('user_id')->whereIn('event_id', $event_ids)->get();
+        $users = User::find($user_ids);
+        return response($users);
     }
 }

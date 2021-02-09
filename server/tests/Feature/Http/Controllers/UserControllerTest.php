@@ -39,4 +39,13 @@ class UserControllerTest extends TestCase
         $response->assertOk();
     }
 
+    public function testFriends()
+    {
+        //GET リクエスト
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer FHGSyYcxHZf3gjq7oDSYJOS2evsiidOo',
+        ])->get(route('user.friends'));
+        // レスポンス検証
+        $response->assertOk();
+    }
 }
